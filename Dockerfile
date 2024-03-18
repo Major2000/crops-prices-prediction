@@ -9,4 +9,4 @@ RUN pip install --upgrade pip && \
 
 EXPOSE 8050
 
-CMD ["python", "src/app.py"]
+CMD ["gunicorn", "--chdir", "src", "-b", "0.0.0.0:8050", "app:server"]
