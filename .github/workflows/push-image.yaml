@@ -1,0 +1,19 @@
+name: Docker Image CI for GHCR
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build_and_publish:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Build and push image
+              run: |
+                docker login --username Major2000 --password ${{ secrets.GH_AT }} ghcr.io
+                docker build . -t ghcr.io/major2000/crops-prices-prediction-huawei:latest
+                docker push ghcr.io/major2000/crops-prices-prediction-huawei:latest
